@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2018",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2018",
+      "esnext.asynciterable",
+      "dom"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src/**/*.ts"
+  ]
+}
