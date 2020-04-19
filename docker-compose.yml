@@ -9,7 +9,7 @@ services:
     links:
       - db
   db:
-    container_name: mongo-docker
+    container_name: mongo
     image: mongo
     ports:
       - '27017:27017'
