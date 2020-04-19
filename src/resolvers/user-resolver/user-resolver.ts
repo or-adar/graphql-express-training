@@ -2,8 +2,9 @@ import {Arg, Ctx, Mutation, Query, Resolver} from "type-graphql";
 import User from "../../entities/user";
 import {hash, compare} from "bcryptjs";
 import LoginSession from "../../entities/login-session";
-import {sign} from "jsonwebtoken";
 import ExpressContext from "../../entities/express-context";
+import {createAccessToken, createRefreshToken} from "../../utils/authorization/authorization";
+import setRefreshToken from "../../utils/authorization/set-refresh-token";
 
 @Resolver(User)
 class UserResolver {
@@ -39,11 +40,17 @@ class UserResolver {
             throw new Error("Email and password does not match");
         }
 
-        res.cookie('jct', sign({userId: user.id}, 'hfkjgdfgadgf', {expiresIn: "7d"}), {httpOnly: true});
-
+        setRefreshToken(res, createRefreshToken(user));
         return {
-            accessToken: sign({userId: user.id}, 'adgsyrrwbjyedsafdc', {expiresIn: "15m"})
+            accessToken: createAccessToken(user)
         }
+    }
+
+    @Mutation(() => Boolean)
+    async logout(@Ctx() {res}: ExpressContext) {
+        setRefreshToken(res, "");
+
+        return true;
     }
 
     @Query(returns => [User])

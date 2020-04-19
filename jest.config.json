@@ -1,0 +1,7 @@
+{
+    "name": "graphql-express-unit-testing",
+    "roots": ["<rootDir>/test/"],
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "clearMocks": true
+}

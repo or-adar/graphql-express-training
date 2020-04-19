@@ -1,7 +1,8 @@
-import {Mutation, Query, Resolver} from "type-graphql";
+import {Mutation, Query, Resolver, UseMiddleware} from "type-graphql";
 import Product from "../../entities/product";
 import {Arg} from "type-graphql/dist/decorators/Arg";
 import CreateProductOptions from "./types/create-product-options";
+import {isAuthorized} from "../../utils/authorization/authorization";
 
 @Resolver(Product)
 class ProductResolver {
@@ -11,6 +12,7 @@ class ProductResolver {
     }
 
     @Query(returns => [Product])
+    @UseMiddleware(isAuthorized)
     async products() {
         return await Product.find();
     }
