@@ -23,7 +23,7 @@ async function startServer() {
 
     await createConnection({
         type: "mongodb",
-        host: "mongo",
+        host: "localhost",
         port: 27017,
         database: "test",
         entities: ["dist/entities/*.*"]
